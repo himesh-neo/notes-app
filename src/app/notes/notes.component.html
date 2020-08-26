@@ -1,0 +1,41 @@
+<div class="container-xl">
+    <div class="table-responsive">
+    <div class="table-wrapper">
+        <div class="table-title">
+        <div class="row">
+            <div class="col-sm-6">
+            <h2>Manage <b>Notes</b></h2>
+            </div>
+            <div class="col-sm-6">
+            <a routerLink="/add-note" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span>Add New Note</span></a>
+            </div>
+        </div>
+        </div>
+        <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let note of notes | paginate:{ itemsPerPage: 10, currentPage: p}">
+            <td>{{note.id}}</td>
+            <td>{{note.title}}</td>
+            <td>{{note.description}}</td>
+            <td>
+                <a routerLink="/edit-note/{{note.id}}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                <a class="delete" (click)="deleteNote(note.id)" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+            </td>
+            </tr>
+        </tbody>
+        </table>
+        <div class="clearfix">
+        <pagination-controls *ngIf="notes!=''" class="my-pagination" (pageChange)="p = $event"></pagination-controls>            
+        </div>
+    </div>
+    </div>        
+</div>
+    

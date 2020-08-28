@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms'; 
 import { NotesService } from "./../../_services/notes.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ToastrService } from 'ngx-toastr';
+//import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-edit-note',
@@ -33,8 +33,8 @@ export class AddEditNoteComponent implements OnInit {
     })
     this.noteForm = this.fb.group({
         id:"",
-        title:["",[Validators.required, Validators.minLength(10)]],
-        description:["",[Validators.required, Validators.minLength(100)]]
+        title:["",[Validators.required]],
+        description:["",[Validators.required]]
     });
 
     if(this.noteId != null){
@@ -58,8 +58,8 @@ export class AddEditNoteComponent implements OnInit {
 
     if(this.noteId != null){
       this.api.updateNote(this.noteForm.value).subscribe(response => {
-        console.log(response);
         alert('Note updated successfully.')
+        this.router.navigate(['/notes']);
         //this.toaster.success('Note Added Successfully');
       })
     }else{

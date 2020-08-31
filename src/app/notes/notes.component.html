@@ -14,20 +14,20 @@
         <table class="table table-striped table-hover">
         <thead>
             <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
+            <th>Key</th>
+            <th>docType</th>
+            <th>make</th>
             <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let note of notes | paginate:{ itemsPerPage: 10, currentPage: p}">
-            <td>{{note.id}}</td>
-            <td>{{note.title}}</td>
-            <td>{{note.description}}</td>
+            <td>{{note.Key}}</td>
+            <td>{{note.Record.docType}}</td>
+            <td>{{note.Record.make}}</td>
             <td>
                 <a routerLink="/edit-note/{{note.id}}" class="edit" ><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                <a class="delete" (click)="deleteNote(note.id)" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                <a class="delete" (click)="deleteNote(note.key)" ><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
             </td>
             </tr>
         </tbody>

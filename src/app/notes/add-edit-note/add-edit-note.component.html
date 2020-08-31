@@ -15,26 +15,24 @@
             <form [formGroup]="noteForm" (submit)="addorUpdateNote()">
                 <div class="modal-body">					
                   <div class="form-group">
-                    <label>Title</label>
-                    <input type="text" class="form-control" formControlName="title">
-                    <div *ngIf="submitted && formControls.title.errors" class="text-danger">
-                        <div *ngIf="formControls.title.errors.required">Title is required</div>
-                        <div *ngIf="formControls.title.errors?.minlength">Title must be at least 10 characters long.</div> 
+                    <label>Doc Type</label>
+                    <input type="text" class="form-control" formControlName="docType">
+                    <div *ngIf="submitted && formControls.docType.errors" class="text-danger">
+                        <div *ngIf="formControls.docType.errors.required">docType is required</div>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label>Description</label>
-                    <textarea rows="5" class="form-control" required formControlName="description"></textarea>
-                    <div *ngIf="submitted && formControls.description.errors" class="text-danger">
-                        <div *ngIf="formControls.description.errors.required">Description is required</div>
-                        <div *ngIf="formControls.description.errors?.minlength">Description must be at least 100 characters long.</div>
+                    <label>Make</label>
+                    <textarea rows="5" class="form-control" required formControlName="make"></textarea>
+                    <div *ngIf="submitted && formControls.make.errors" class="text-danger">
+                        <div *ngIf="formControls.make.errors.required">Make is required</div>
                     </div>
                   </div>
                 </div>
                 <div class="modal-footer">
                   <input (click)="cancel()" type="button" class="btn btn-default" value="Cancel">
-                  <input *ngIf="!noteId" type="submit" class="btn btn-success" value="Add Note">
-                  <input *ngIf="noteId" type="submit" class="btn btn-success" value="Update Note">
+                  <input *ngIf="!key" type="submit" class="btn btn-success" value="Add Note">
+                  <input *ngIf="key" type="submit" class="btn btn-success" value="Update Note">
                 </div>
               </form>
         </div>

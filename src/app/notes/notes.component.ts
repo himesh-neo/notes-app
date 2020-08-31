@@ -26,11 +26,14 @@ export class NotesComponent implements OnInit {
     })
   }
 
-  deleteNote(id){
+  deleteNote(key){
     if(confirm("Are you sure to delete this note?")) {
-      this.api.deleteNote(id).subscribe(response => {
-        console.log(response);
-        alert('Note deleted successfully.')
+      this.api.deleteNote({key:key}).subscribe(response => {
+        if(response == []){
+          alert('Note deleted successfully.')
+        }else{
+          alert(response);
+        }
         this.loadNotes();
       })
     }

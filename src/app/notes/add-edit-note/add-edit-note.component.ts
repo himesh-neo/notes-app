@@ -13,11 +13,10 @@ export class AddEditNoteComponent implements OnInit {
 
   noteForm : FormGroup;
   submitted = false;
-  noteId: any;
+  key: any;
   note:any = {
-    id:"",
-    title:"",
-    description:""
+    docType:"",
+    make:""
   }
 
   constructor(private fb: FormBuilder,
@@ -29,21 +28,19 @@ export class AddEditNoteComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.noteId = params.get("id");
+      this.key = params.get("key");
     })
     this.noteForm = this.fb.group({
-        id:"",
-        title:["",[Validators.required]],
-        description:["",[Validators.required]]
+        docType:["",[Validators.required]],
+        make:["",[Validators.required]]
     });
 
-    if(this.noteId != null){
-      this.api.getNote(this.noteId).subscribe(response => {
+    if(this.key != null){
+      this.api.getNote({key:this.key}).subscribe(response => {
         this.note = response;
         this.noteForm = this.fb.group({
-          id:this.note.id,
-          title:[this.note.title,[Validators.required]],
-          description:[this.note.description,[Validators.required]]
+          docType:[this.note.docType,[Validators.required]],
+          make:[this.note.make,[Validators.required]]
         });
       })
     }
@@ -56,20 +53,52 @@ export class AddEditNoteComponent implements OnInit {
       return;
     }
 
-    if(this.noteId != null){
-      this.api.updateNote(this.noteForm.value).subscribe(response => {
-        alert('Note updated successfully.')
+    if(this.key != null){
+      let data = [{
+        Key: this.key,
+        Record:{
+          docType:this.noteForm.value.docType,
+          make:this.noteForm.value.make
+        }
+      }]
+      this.api.updateNote(data).subscribe(response => {
+        if(response == []){
+          alert('Note updated successfully.')
+        }else{
+          alert(response);
+        }
         this.router.navigate(['/notes']);
         //this.toaster.success('Note Added Successfully');
       })
     }else{
-      this.api.addNote(this.noteForm.value).subscribe(response => {
-        console.log(response);
-        alert('Note added successfully.');
+      let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+      const lengthOfCode = 10;
+      let str = this.generateRandomString(lengthOfCode, possible);
+      let data = [{
+        Key: str,
+        Record:{
+          docType:this.noteForm.value.docType,
+          make:this.noteForm.value.make
+        }
+      }]
+      this.api.addNote(data).subscribe(response => {
+        if(response == []){
+          alert('Note added successfully.')
+        }else{
+          alert(response);
+        }
         this.router.navigate(['/notes']);
         //this.toaster.success('Note Added Successfully');
       })
     }
+  }
+
+  generateRandomString(lengthOfCode: number, possible: string) {
+    let text = "";
+    for (let i = 0; i < lengthOfCode; i++) {
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+    }
+      return text;
   }
 
   cancel(){

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from "rxjs/operators";
+import { environment } from './../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +11,11 @@ export class NotesService {
   constructor(private http: HttpClient) { }
 
   getNotes(){
-    return this.http.get('https://5f449ed43fb92f00167539c7.mockapi.io/api/v1/notes')
+    return this.http.get(environment.apiUrl+'/getAllNotes');
   }
 
   addNote(data){
-    return this.http.post('https://5f449ed43fb92f00167539c7.mockapi.io/api/v1/notes/', data).pipe(
+    return this.http.post(environment.apiUrl+'/submitNotes', data).pipe(
       map(res => {
         return res;
       })
@@ -22,23 +23,23 @@ export class NotesService {
   }
 
   updateNote(data){
-    return this.http.put('https://5f449ed43fb92f00167539c7.mockapi.io/api/v1/notes/'+data.id, data).pipe(
+    return this.http.post(environment.apiUrl+'/changeNotes', data).pipe(
       map(res => {
         return res;
       })
     )
   }
 
-  deleteNote(id){
-    return this.http.delete('https://5f449ed43fb92f00167539c7.mockapi.io/api/v1/notes/'+id).pipe(
+  deleteNote(data){
+    return this.http.post(environment.apiUrl+'/removeNote', data).pipe(
       map( res => {
         return res;
       })
     );
   }
 
-  getNote(id){
-    return this.http.get('https://5f449ed43fb92f00167539c7.mockapi.io/api/v1/notes/'+id).pipe(
+  getNote(key){
+      return this.http.get(environment.apiUrl+'/getNote'+key).pipe(
       map(res => {
         return res;
       })

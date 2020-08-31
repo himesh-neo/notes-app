@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: '', component: NotesComponent },
   { path: 'notes', component: NotesComponent },
   { path: 'add-note', component: AddEditNoteComponent },
-  { path: 'edit-note/:id', component: AddEditNoteComponent }
+  { path: 'edit-note/:key', component: AddEditNoteComponent }
 ];
 
 @NgModule({

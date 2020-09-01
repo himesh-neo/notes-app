@@ -1,40 +1,36 @@
-
 <div class="container-xl">
     <div class="table-responsive">
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                    <h2>Add New Note</h2>
+                        <h2>Add New Note</h2>
                     </div>
                     <div class="col-sm-6">
-                    <a routerLink="/notes" class="btn btn-success" ><span>Back To List</span></a>
+                        <a routerLink="/notes" class="btn btn-success"><span>Back To List</span></a>
                     </div>
                 </div>
             </div>
             <form [formGroup]="noteForm" (submit)="addorUpdateNote()">
-                <div class="modal-body">					
-                  <div class="form-group">
-                    <label>Doc Type</label>
-                    <input type="text" class="form-control" formControlName="docType">
-                    <div *ngIf="submitted && formControls.docType.errors" class="text-danger">
-                        <div *ngIf="formControls.docType.errors.required">docType is required</div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- <label>Doc Type</label> -->
+                        <input type="hidden" class="form-control" formControlName="key">
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label>Make</label>
-                    <textarea rows="5" class="form-control" required formControlName="make"></textarea>
-                    <div *ngIf="submitted && formControls.make.errors" class="text-danger">
-                        <div *ngIf="formControls.make.errors.required">Make is required</div>
+                    <div class="form-group">
+                        <label>Note</label>
+                        <textarea rows="5" class="form-control" required formControlName="value"></textarea>
+                        <div *ngIf="submitted && formControls.Value.errors" class="text-danger">
+                            <div *ngIf="formControls.value.errors.required">Make is required</div>
+                        </div>
                     </div>
-                  </div>
                 </div>
                 <div class="modal-footer">
-                  <input (click)="cancel()" type="button" class="btn btn-default" value="Cancel">
-                  <input *ngIf="!key" type="submit" class="btn btn-success" value="Add Note">
-                  <input *ngIf="key" type="submit" class="btn btn-success" value="Update Note">
+                    <input (click)="cancel()" type="button" class="btn btn-default" value="Cancel">
+                    <input *ngIf="!key" type="submit" class="btn btn-success" value="Save Note">
+                    <input *ngIf="key" type="submit" class="btn btn-success" value="Save Note">
                 </div>
-              </form>
+            </form>
         </div>
-    </div>        
+    </div>
 </div>
